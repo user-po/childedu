@@ -1,0 +1,2 @@
+::1 - - [25/Jun/2021:09:02:17 +0000] "GET /api/edu/teacher/get HTTP/1.1" 200 1255 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+::1 - - [25/Jun/2021:09:02:18 +0000] "GET /favicon.ico HTTP/1.1" 404 33 "http://localhost:8000/api/edu/teacher/get" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"

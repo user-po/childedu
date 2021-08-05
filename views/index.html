@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文件上传</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <form id="form" action="index.html">
+		<input type="file" name="files" id="file"  multiple/>
+		<button id="upload" type="button">上传</button>
+  </form>
+    <span id="progress">0</span>
+    <img id="image" src="" width="200" />
+    <video src="http://10.37.53.62:8000/api/edu/files/show?file_name=1627796637995-2.mp4" controls></video>
+  </body>
+  <script>
+    (function () {
+      let file = document.querySelector("#file");
+      let upload = document.querySelector("#upload");
+      let progress = document.querySelector("#progress");
+      let image = document.querySelector("#image");
+	  let form = document.querySelector('#form');
+      let xhr = new XMLHttpRequest();
+
+      upload.addEventListener("click", uploadFile);
+     // upload.onclick = uploadFile;
+      file.addEventListener("change", previewImage);
+
+      //点击上传
+      function uploadFile(e) {
+        let formData = new FormData(form);
+        formData.append("module_name", "成绩");
+        formData.append("module_id",1)
+        formData.append("file_usage",'展示')
+        //xhr.onload = uploadSuccess;
+        xhr.upload.onprogress = setProgress;
+        xhr.open("post", "http://localhost:8000/api/edu/files/upload", true);
+        
+        xhr.send(formData);
+       
+		
+      }
+      // 成功上传
+      function uploadSuccess(event) {
+        if (xhr.readyState === 4) {
+          alert(xhr.responseText);
+        }
+      }
+
+      // 进度条
+      function setProgress(e) {
+        if (e.lengthComputable) {
+          let complete = Number.parseInt((e.loaded / e.total) * 100);
+          progress.innerHTML = complete + "%";
+        }
+      }
+      //   图片预览
+      function previewImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          image.src = e.target.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
+    })();
+  </script>
+</html>
